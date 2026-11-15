@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Northbrand theme for the settings screen: ink background, off-white
+     text, gold accent. Same palette as the quick capture card so the app
+     reads as one piece. No teal anywhere. -->
+<resources>
+
+    <style name="AppTheme" parent="@android:style/Theme.Material">
+        <item name="android:windowBackground">#14161c</item>
+        <item name="android:statusBarColor">#14161c</item>
+        <item name="android:navigationBarColor">#14161c</item>
+        <item name="android:textColorPrimary">#ece9df</item>
+        <item name="android:textColorSecondary">#a7aabc</item>
+        <item name="android:colorAccent">#c9a227</item>
+        <item name="android:fontFamily">sans</item>
+    </style>
+
+    <!-- Small muted label above each settings card's contents. -->
+    <style name="SectionLabel">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#a7aabc</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+    <!-- One row inside the "How it works" card. -->
+    <style name="HowRow">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ece9df</item>
+        <item name="android:lineSpacingMultiplier">1.15</item>
+    </style>
+</resources>

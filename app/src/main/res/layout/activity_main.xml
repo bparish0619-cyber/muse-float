@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Muse Float settings screen, Northbrand styling (v1.4): ink
+     background, panel cards with hairline borders, gold accents.
+     Every control keeps its v1.3 id so MainActivity and the saved
+     preferences are untouched by the restyle. The root ScrollView
+     carries an id since v1.5 so MainActivity can pad it below the
+     status and action bars (window insets); see padContentBelowBars. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settingsRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#14161c">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Header: her face, the name, one line. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/headerThumb"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_thumb_ring"
+                android:contentDescription="Your Muse avatar"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/face_default" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Muse Float"
+                    android:textColor="#ece9df"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="A floating shortcut to Muse."
+                    android:textColor="#a7aabc"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Tap the bubble to open Muse. Long press it to send a thought."
+            android:textColor="#ece9df"
+            android:textSize="14sp" />
+
+        <!-- How it works: four gestures, no paragraph. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/SectionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HOW IT WORKS" />
+
+            <TextView
+                style="@style/HowRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="•  Tap, open Muse" />
+
+            <TextView
+                style="@style/HowRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="•  Double tap, snooze for an hour" />
+
+            <TextView
+                style="@style/HowRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="•  Long press, quick capture, text or voice" />
+
+            <TextView
+                style="@style/HowRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="•  Drag to the X, dismiss" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Its face follows the day: the day face from 07:00, the night face after 19:00."
+                android:textColor="#a7aabc"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Status: on/off line, permission ask, start/stop. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/SectionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STATUS" />
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Bubble is off."
+                android:textColor="#ece9df"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/overlayButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_overlay_button"
+                android:minHeight="48dp"
+                android:stateListAnimator="@null"
+                android:text="Grant &quot;display over other apps&quot;"
+                android:textAllCaps="false"
+                android:textColor="#c9a227"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/startButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_gold_button"
+                    android:minHeight="48dp"
+                    android:stateListAnimator="@null"
+                    android:text="Start bubble"
+                    android:textAllCaps="false"
+                    android:textColor="#14161c"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/stopButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_quiet_button"
+                    android:minHeight="48dp"
+                    android:stateListAnimator="@null"
+                    android:text="Stop bubble"
+                    android:textAllCaps="false"
+                    android:textColor="#ece9df"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Battery: no wake locks, sensors, or network. Leave battery usage on Optimized; only move Muse Float to Never sleeping if the bubble disappears on its own."
+                android:textColor="#a7aabc"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Tap target. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/SectionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A TAP OPENS" />
+
+            <RadioGroup
+                android:id="@+id/targetGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
+
+                <RadioButton
+                    android:id="@+id/targetApp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    android:text="The Muse app"
+                    android:textColor="#ece9df"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/targetWeb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    android:text="muse.ai in the browser"
+                    android:textColor="#ece9df"
+                    android:textSize="15sp" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/targetNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text=""
+                android:textColor="#a7aabc"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+                <!-- Bubble face: the user's own avatar images, picked here and
+             copied into app-private storage by Faces. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/SectionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUBBLE FACE" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="The bubble shows your Muse avatar. Pick any image from this phone; it is center-cropped to a circle, stored only in this app, and never uploaded anywhere."
+                android:textColor="#ece9df"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/faceDayPreview"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_thumb_ring"
+                    android:contentDescription="Day face"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/face_default" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:text="Day face, 07:00 to 19:00"
+                    android:textColor="#ece9df"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/faceDayButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_quiet_button"
+                    android:minHeight="48dp"
+                    android:stateListAnimator="@null"
+                    android:text="Choose"
+                    android:textAllCaps="false"
+                    android:textColor="#ece9df"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/faceNightPreview"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_thumb_ring"
+                    android:contentDescription="Night face"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/face_default" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:text="Night face, after 19:00"
+                    android:textColor="#ece9df"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/faceNightButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_quiet_button"
+                    android:minHeight="48dp"
+                    android:stateListAnimator="@null"
+                    android:text="Choose"
+                    android:textAllCaps="false"
+                    android:textColor="#ece9df"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Set only one and it is used day and night."
+                android:textColor="#a7aabc"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/faceResetButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_quiet_button"
+                android:minHeight="48dp"
+                android:stateListAnimator="@null"
+                android:text="Reset to default face"
+                android:textAllCaps="false"
+                android:textColor="#ece9df"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Bubble appearance: size and idle fade. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/SectionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUBBLE" />
+
+            <TextView
+                android:id="@+id/sizeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Bubble size"
+                android:textColor="#ece9df"
+                android:textSize="14sp" />
+
+            <SeekBar
+                android:id="@+id/sizeSeek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/opacityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Idle fade opacity"
+                android:textColor="#ece9df"
+                android:textSize="14sp" />
+
+            <SeekBar
+                android:id="@+id/opacitySeek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Voice notes: the microphone grant lives here because a
+             service cannot ask for runtime permissions. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/SectionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VOICE NOTES" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Long press the bubble, then tap the microphone in the capture card to record a note (up to 5 minutes). Sending shares it to Muse; the app uploads nothing itself."
+                android:textColor="#ece9df"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/voiceNoteStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text=""
+                android:textColor="#a7aabc"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/micButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_quiet_button"
+                android:minHeight="48dp"
+                android:stateListAnimator="@null"
+                android:text="Grant microphone access"
+                android:textAllCaps="false"
+                android:textColor="#ece9df"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Boot restart. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/SectionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RESTART" />
+
+            <Switch
+                android:id="@+id/bootSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:minHeight="40dp"
+                android:text="Restart bubble after phone reboot"
+                android:textColor="#ece9df"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

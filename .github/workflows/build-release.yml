@@ -1,0 +1,69 @@
+name: Build Release
+
+# Builds the signed release APK in GitHub Actions and publishes it to
+# this repo's Releases, so anyone can download and sideload it.
+# Release steps run on every push to main and on manual dispatch.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    # Creating the GitHub Release at the end needs Contents write access.
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # Gradle itself comes from this action; the repo carries no wrapper
+      # jar. Keep this version at or above what the Android Gradle Plugin
+      # in build.gradle.kts requires (AGP 8.6 needs Gradle 8.7+).
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      # Signing material arrives as secrets; the keystore is decoded to
+      # ./key.jks and local.properties points the build at it. These four
+      # secret names must match app/build.gradle.kts.
+      - name: Init Signature
+        run: |
+          touch local.properties
+          echo "KEY_PATH=./key.jks" >> local.properties
+          echo "ALIAS_NAME=${{ secrets.ALIAS_NAME }}" >> local.properties
+          echo "ALIAS_PASSWORD=${{ secrets.ALIAS_PASSWORD }}" >> local.properties
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> local.properties
+          echo "${{ secrets.KEY_STORE }}" | base64 --decode > "$GITHUB_WORKSPACE/key.jks"
+
+      - name: Build signed release APK
+        run: gradle :app:assembleRelease --stacktrace
+
+      - name: Read version
+        run: |
+          echo "ver_name=$(grep -m 1 'versionName' app/build/outputs/apk/release/output-metadata.json | cut -d\" -f4)" >> "$GITHUB_ENV"
+
+      - name: Upload APK to artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: MuseFloat_${{ env.ver_name }}
+          path: app/build/outputs/apk/release/*.apk
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Muse Float ${{ env.ver_name }}
+          tag_name: v${{ env.ver_name }}
+          draft: false
+          prerelease: false
+          files: app/build/outputs/apk/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
